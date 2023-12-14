@@ -1,4 +1,4 @@
-package com.example.riverpod_paginated_views
+package dev.venir.riverpod_paginated_views
 
 import io.flutter.embedding.android.FlutterActivity
 
