@@ -28,6 +28,4 @@ GoRouter router(RouterRef ref) {
 }
 
 @riverpod
-String initialLocation(InitialLocationRef ref) => '/'; // TODO customize
-
-
+String initialLocation(InitialLocationRef ref) => '/';
