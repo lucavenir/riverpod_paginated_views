@@ -5,7 +5,17 @@ final class FavoritesRepository implements FavoritesRepositoryInterface {
   const FavoritesRepository();
 
   @override
-  Favorites getFavorites() {
+  Future<Favorites> getFavorites({required int page}) {
     throw UnimplementedError('TODO: add repository logic in here');
+  }
+
+  @override
+  Future<int> addFavorite(int id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<int> removeFavorite(int id) {
+    throw UnimplementedError();
   }
 }
