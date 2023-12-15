@@ -1,19 +1,75 @@
-import 'package:go_router/go_router.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 
-import '../src/counter/presentation/pages/counter_page.dart';
-
-// TODO: add and customize routes here
+import '../src/favorites/presentation/pages/favorites_page.dart';
+import '../src/home/presentation/pages/home_page.dart';
+import '../src/main/presentation/pages/main_page.dart';
+import '../src/search/presentation/pages/search_page.dart';
 
 part 'routes_configuration.g.dart';
 
-@TypedGoRoute<CounterRoute>(path: '/')
-class CounterRoute extends GoRouteData {
-  const CounterRoute();
+@TypedStatefulShellRoute<MainRoute>(
+  branches: [
+    TypedStatefulShellBranch<HomeBranch>(
+      routes: [TypedGoRoute<HomeRoute>(path: '/')],
+    ),
+    TypedStatefulShellBranch<SearchBranch>(
+      routes: [TypedGoRoute<SearchRoute>(path: '/countdown')],
+    ),
+    TypedStatefulShellBranch<SearchBranch>(
+      routes: [TypedGoRoute<SearchRoute>(path: '/profile')],
+    ),
+  ],
+)
+class MainRoute extends StatefulShellRouteData {
+  const MainRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const CounterPage();
+  Widget builder(
+    BuildContext context,
+    GoRouterState state,
+    StatefulNavigationShell navigationShell,
+  ) {
+    return MainPage(navigationShell);
   }
 }
 
+class HomeBranch extends StatefulShellBranchData {
+  const HomeBranch();
+}
+
+@TypedGoRoute<HomeRoute>(path: '/')
+class HomeRoute extends GoRouteData {
+  const HomeRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const HomePage();
+  }
+}
+
+class SearchBranch extends StatefulShellBranchData {
+  const SearchBranch();
+}
+
+class SearchRoute extends GoRouteData {
+  const SearchRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const SearchPage();
+  }
+}
+
+class FavoriteBranch extends StatefulShellBranchData {
+  const FavoriteBranch();
+}
+
+class FavoritesRoute extends GoRouteData {
+  const FavoritesRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const FavoritesPage();
+  }
+}
