@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../items/domain/entities/item.dart';
@@ -11,7 +12,7 @@ FavoritesRepositoryInterface favoritesRepository(FavoritesRepositoryRef ref) {
 }
 
 abstract interface class FavoritesRepositoryInterface {
-  Future<List<Item>> getFavorites({required int page});
+  Future<IList<Item>> getFavorites({required int page});
   Future<int> addFavorite(Item item);
   Future<int> removeFavorite(Item item);
 }

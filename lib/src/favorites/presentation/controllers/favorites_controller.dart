@@ -1,3 +1,5 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../items/domain/entities/item.dart';
@@ -6,13 +8,18 @@ import '../../domain/repositories/favorites_repository_interface.dart';
 part 'favorites_controller.g.dart';
 
 @riverpod
-final class FavoritesController extends _$FavoritesController {
+class FavoritesController extends _$FavoritesController {
   late FavoritesRepositoryInterface _repository;
 
   @override
-  Future<List<Item>> build() {
-    _repository = ref.watch(favoritesRepositoryProvider);
+  FutureOr<IList<Item>> build() {
+    initRepo();
     return _repository.getFavorites(page: 0);
+  }
+
+  @protected
+  void initRepo() {
+    _repository = ref.watch(favoritesRepositoryProvider);
   }
 
   Future<void> addPage() async {
@@ -30,9 +37,7 @@ final class FavoritesController extends _$FavoritesController {
     assert(item.isNotFavorite, 'Item must not *be* favorite to add it to the favorites');
 
     final favoriteId = await _repository.addFavorite(item);
-    await update((state) {
-      return [item, ...state];
-    });
+    await update((state) => [item.copyWith(favoriteId: favoriteId), ...state].lock);
     return favoriteId;
   }
 
@@ -47,9 +52,7 @@ final class FavoritesController extends _$FavoritesController {
     assert(item.isFavorite, 'Item must be favorite to remove it from the favorites');
 
     final favoriteId = await _repository.removeFavorite(item);
-    await update((state) {
-      return [...state.where((element) => element.id != item.id)];
-    });
+    await update((state) => [...state.where((element) => element.id != item.id)].lock);
     return favoriteId;
   }
 }
