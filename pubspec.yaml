@@ -43,7 +43,7 @@ dev_dependencies:
   go_router_builder: ^2.4.0
   http_mock_adapter: ^0.6.1
   json_serializable: ^6.7.1
-  mocktail: ^1.0.1
+  mocktail: ^1.0.2
   riverpod_generator: ^2.3.9
   riverpod_lint: ^2.3.7
   very_good_analysis: ^5.1.0

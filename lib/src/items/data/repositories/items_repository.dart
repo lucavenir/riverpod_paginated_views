@@ -13,7 +13,7 @@ final class ItemsRepository implements ItemsRepositoryInterface {
   Future<List<Item>> fetchItems({required int page}) async {
     final random = Random();
     final items = List.generate(pageSize, (index) {
-      final favoriteId = random.nextBool() ? random.nextInt(1 >> 16) : null;
+      final favoriteId = random.nextBool() ? random.nextInt(1 << 16) : null;
       return Item(
         id: page + index,
         label: 'Item $favoriteId',
