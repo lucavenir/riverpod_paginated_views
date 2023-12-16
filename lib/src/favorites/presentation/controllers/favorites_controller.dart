@@ -31,9 +31,7 @@ final class FavoritesController extends _$FavoritesController {
 
     final favoriteId = await _repository.addFavorite(item);
     await update((state) {
-      return [
-        ...state.map((f) => f.id == item.id ? f.copyWith(favoriteId: favoriteId) : f),
-      ];
+      return [item, ...state];
     });
     return favoriteId;
   }
@@ -50,9 +48,7 @@ final class FavoritesController extends _$FavoritesController {
 
     final favoriteId = await _repository.removeFavorite(item);
     await update((state) {
-      return [
-        ...state.map((f) => f.id == item.id ? f.copyWith(favoriteId: null) : f),
-      ];
+      return [...state.where((element) => element.id != item.id)];
     });
     return favoriteId;
   }
