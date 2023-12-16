@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../items/domain/entities/item.dart';
 import '../../data/repositories/search_repository.dart';
-import '../entities/search.dart';
 
 part 'search_repository_interface.g.dart';
 
@@ -11,5 +11,5 @@ SearchRepositoryInterface searchRepository(SearchRepositoryRef ref) {
 }
 
 abstract interface class SearchRepositoryInterface {
-  Search getSearch();
+  List<Item> getSearch();
 }

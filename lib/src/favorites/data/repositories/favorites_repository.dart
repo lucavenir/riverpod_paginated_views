@@ -10,12 +10,12 @@ final class FavoritesRepository implements FavoritesRepositoryInterface {
   }
 
   @override
-  Future<int> addFavorite(int id) {
+  Future<int> addFavorite(Item item) {
     throw UnimplementedError();
   }
 
   @override
-  Future<int> removeFavorite(int id) {
+  Future<int> removeFavorite(Item item) {
     throw UnimplementedError();
   }
 }

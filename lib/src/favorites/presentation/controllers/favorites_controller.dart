@@ -20,9 +20,9 @@ final class FavoritesController extends _$FavoritesController with WithFavorites
 
   @override
   @protected
-  Fn1<int, Future<int>> get addFavoriteCallback => _repository.removeFavorite;
+  Fn1<Item, Future<int>> get addFavoriteCallback => _repository.removeFavorite;
 
   @override
   @protected
-  Fn1<int, Future<int>> get removeFavoriteCallback => _repository.removeFavorite;
+  Fn1<Item, Future<int>> get removeFavoriteCallback => _repository.removeFavorite;
 }

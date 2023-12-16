@@ -7,9 +7,9 @@ import '../../../shared/domain/interfaces/fn1.dart';
 // ignore: invalid_use_of_internal_member
 mixin WithFavoritesMixin on BuildlessAutoDisposeAsyncNotifier<List<Item>> {
   @protected
-  Fn1<int, Future<int>> get addFavoriteCallback;
+  Fn1<Item, Future<int>> get addFavoriteCallback;
   @protected
-  Fn1<int, Future<int>> get removeFavoriteCallback;
+  Fn1<Item, Future<int>> get removeFavoriteCallback;
 
   /// Toggles the favorite status of the given [favorite].
   Future<void> toggleFavorite(Item favorite) {
@@ -19,29 +19,31 @@ mixin WithFavoritesMixin on BuildlessAutoDisposeAsyncNotifier<List<Item>> {
   /// Adds the given [favorite] to the favorites.
   /// Triggers a side effect to add the favorite and updates the state accordingly.
   @protected
-  Future<void> addFavorite(Item favorite) {
+  Future<int> addFavorite(Item favorite) async {
     assert(favorite.isNotFavorite, 'Item must not be favorite to add it to the favorites');
 
-    return update((state) async {
-      final favoriteId = await addFavoriteCallback(favorite.id);
+    final favoriteId = await addFavoriteCallback(favorite);
+    await update((state) async {
       return [
         ...state,
         favorite.copyWith(favoriteId: favoriteId),
       ];
     });
+    return favoriteId;
   }
 
   /// Removes the given [favorite] from the favorites.
   /// Triggers a side effect to remove the favorite and updates the state accordingly.
   @protected
-  Future<void> removeFavorite(Item favorite) {
+  Future<int> removeFavorite(Item favorite) async {
     assert(favorite.isFavorite, 'Item must be favorite to remove it from the favorites');
 
-    return update((state) async {
-      final _ = await removeFavoriteCallback(favorite.favoriteId!);
+    final favoriteId = await removeFavoriteCallback(favorite);
+    await update((state) async {
       return [
         ...state.where((f) => f.favoriteId != favorite.favoriteId),
       ];
     });
+    return favoriteId;
   }
 }
