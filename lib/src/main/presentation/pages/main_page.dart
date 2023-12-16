@@ -11,13 +11,12 @@ class MainPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final canExit = useRef(_initial(context));
+    final isInitial = navigationShell.currentIndex == 0;
+    final canExit = useRef(isInitial);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Infinite paged lists test'),
-        backgroundColor: theme.colorScheme.primary,
+        title: const Text('Infinite paginated lists with Riverpod'),
       ),
       body: PopScope(
         canPop: canExit.value,
@@ -29,7 +28,6 @@ class MainPage extends HookConsumerWidget {
         child: navigationShell,
       ),
       bottomNavigationBar: NavigationBar(
-        backgroundColor: theme.colorScheme.primary,
         selectedIndex: navigationShell.currentIndex,
         destinations: const [
           NavigationDestination(label: 'Home', icon: Icon(Icons.home_filled)),
@@ -42,9 +40,5 @@ class MainPage extends HookConsumerWidget {
         },
       ),
     );
-  }
-
-  bool _initial(BuildContext context) {
-    return GoRouterState.of(context).uri.toString() == const HomeRoute().location;
   }
 }
