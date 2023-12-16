@@ -1,11 +1,11 @@
-import '../../domain/entities/favorites.dart';
+import '../../../items/domain/entities/item.dart';
 import '../../domain/repositories/favorites_repository_interface.dart';
 
 final class FavoritesRepository implements FavoritesRepositoryInterface {
   const FavoritesRepository();
 
   @override
-  Future<Favorites> getFavorites({required int page}) {
+  Future<List<Item>> getFavorites({required int page}) {
     throw UnimplementedError('TODO: add repository logic in here');
   }
 

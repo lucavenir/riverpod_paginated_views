@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../items/domain/entities/item.dart';
 import '../../data/repositories/favorites_repository.dart';
-import '../entities/favorites.dart';
 
 part 'favorites_repository_interface.g.dart';
 
@@ -11,7 +11,7 @@ FavoritesRepositoryInterface favoritesRepository(FavoritesRepositoryRef ref) {
 }
 
 abstract interface class FavoritesRepositoryInterface {
-  Future<Favorites> getFavorites({required int page});
+  Future<List<Item>> getFavorites({required int page});
   Future<int> addFavorite(int id);
   Future<int> removeFavorite(int id);
 }
