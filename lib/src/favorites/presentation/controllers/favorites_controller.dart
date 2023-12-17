@@ -9,17 +9,13 @@ part 'favorites_controller.g.dart';
 
 @riverpod
 class FavoritesController extends _$FavoritesController {
-  late FavoritesRepositoryInterface _repository;
+  @protected
+  late FavoritesRepositoryInterface repository;
 
   @override
   FutureOr<IList<Item>> build() {
-    initRepo();
-    return _repository.getFavorites(page: 0);
-  }
-
-  @protected
-  void initRepo() {
-    _repository = ref.watch(favoritesRepositoryProvider);
+    repository = ref.watch(favoritesRepositoryProvider);
+    return repository.getFavorites(page: 0);
   }
 
   Future<void> addPage() async {
@@ -36,7 +32,7 @@ class FavoritesController extends _$FavoritesController {
     );
     assert(item.isNotFavorite, 'Item must not *be* favorite to add it to the favorites');
 
-    final favoriteId = await _repository.addFavorite(item);
+    final favoriteId = await repository.addFavorite(item);
     await update((state) => [item.copyWith(favoriteId: favoriteId), ...state].lock);
     return favoriteId;
   }
@@ -51,7 +47,7 @@ class FavoritesController extends _$FavoritesController {
     );
     assert(item.isFavorite, 'Item must be favorite to remove it from the favorites');
 
-    final favoriteId = await _repository.removeFavorite(item);
+    final favoriteId = await repository.removeFavorite(item);
     await update((state) => [...state.where((element) => element.id != item.id)].lock);
     return favoriteId;
   }

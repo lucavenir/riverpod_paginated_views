@@ -102,7 +102,7 @@ final emptyState = AsyncData(startingList);
 class InitializedFavoritesController extends FavoritesController {
   @override
   FutureOr<IList<Item>> build() {
-    initRepo();
+    repository = ref.watch(favoritesRepositoryProvider);
     return startingList;
   }
 }
@@ -124,7 +124,7 @@ final thirdState = AsyncData(thirdList);
 class WithFavoritesFavoritesController extends FavoritesController {
   @override
   FutureOr<IList<Item>> build() {
-    initRepo();
+    repository = ref.watch(favoritesRepositoryProvider);
     return secondList;
   }
 }
