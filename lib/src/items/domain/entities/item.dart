@@ -10,6 +10,7 @@ class Item with _$Item {
     required int? favoriteId,
   }) = _Item;
   const Item._();
+
   bool get isFavorite => favoriteId != null;
   bool get isNotFavorite => !isFavorite;
 }

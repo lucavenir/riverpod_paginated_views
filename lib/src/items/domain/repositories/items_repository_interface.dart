@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../data/repositories/items_repository.dart';
@@ -11,5 +12,5 @@ ItemsRepositoryInterface itemsRepository(ItemsRepositoryRef ref) {
 }
 
 abstract interface class ItemsRepositoryInterface {
-  Future<List<Item>> fetchItems({required int page});
+  Future<IList<Item>> fetchItems({required int page});
 }

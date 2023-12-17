@@ -5,8 +5,9 @@ import '../../../items/domain/entities/item.dart';
 import '../../../shared/presentation/logic/ref_update.dart';
 import '../controllers/favorites_controller.dart';
 
-extension ListenFavoritesAndUpdateRefExtension on AutoDisposeFutureProviderRef<List<Item>> {
-  FutureOr<void> listenFavoritesAndUpdate() {
+extension ListenToFavoritesAndUpdateAccordinglyRefExtension
+    on AutoDisposeFutureProviderRef<IList<Item>> {
+  void listenToFavoritesAndUpdateAccordingly() {
     final favoriteSubscription = listen(favoritesControllerProvider, (previous, next) async {
       final nextSet = next.valueOrNull?.toISet();
       final prevSet = previous?.valueOrNull?.toISet();
@@ -17,7 +18,7 @@ extension ListenFavoritesAndUpdateRefExtension on AutoDisposeFutureProviderRef<L
       final added = nextSet.difference(prevSet);
 
       await _updateOnFavoriteAdded(added, current);
-      await _removeOnFavoriteRemoved(removed, current);
+      await _updateOnFavoriteRemoved(removed, current);
     });
     onDispose(favoriteSubscription.close);
   }
@@ -33,17 +34,17 @@ extension ListenFavoritesAndUpdateRefExtension on AutoDisposeFutureProviderRef<L
             _ => e,
           },
         ),
-      ],
+      ].lock,
     );
   }
 
-  Future<void> _removeOnFavoriteRemoved(ISet<Item> removed, ISet<Item> current) async {
+  Future<void> _updateOnFavoriteRemoved(ISet<Item> removed, ISet<Item> current) async {
     final removedFromHere = removed.intersection(current);
     if (removedFromHere.isEmpty) return;
     await update(
       (state) => [
         ...state.map((e) => removedFromHere.contains(e) ? e.copyWith(favoriteId: null) : e),
-      ],
+      ].lock,
     );
   }
 }
