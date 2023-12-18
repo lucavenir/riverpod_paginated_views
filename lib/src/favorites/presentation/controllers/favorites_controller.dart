@@ -7,6 +7,7 @@ import '../../domain/repositories/favorites_repository_interface.dart';
 
 part 'favorites_controller.g.dart';
 
+// How can I inject `page` for this provider, so that I can paginate this without having to manually call `addPage`?
 @riverpod
 class FavoritesController extends _$FavoritesController {
   @protected
@@ -18,6 +19,7 @@ class FavoritesController extends _$FavoritesController {
     return repository.getFavorites(page: 0);
   }
 
+  // This is undesirable, because I want to paginate this list, but I don't want to have to manually call `addPage` every time.
   Future<void> addPage() async {
     throw UnimplementedError();
   }

@@ -8,6 +8,7 @@ import '../controllers/favorites_controller.dart';
 extension ListenToFavoritesAndUpdateAccordinglyRefExtension
     on AutoDisposeFutureProviderRef<IList<Item>> {
   void listenToFavoritesAndUpdateAccordingly() {
+    // if `favoritesControllerProvider` is a family that depends on `page`, how can listen to every available page up until the current one?
     final favoriteSubscription = listen(favoritesControllerProvider, (previous, next) async {
       final nextSet = next.valueOrNull?.toISet();
       final prevSet = previous?.valueOrNull?.toISet();
