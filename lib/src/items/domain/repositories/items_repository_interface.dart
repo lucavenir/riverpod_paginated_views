@@ -13,4 +13,5 @@ ItemsRepositoryInterface itemsRepository(ItemsRepositoryRef ref) {
 
 abstract interface class ItemsRepositoryInterface {
   Future<IList<Item>> fetchItems({required int page});
+  Future<Item> getDetails({required int id});
 }
