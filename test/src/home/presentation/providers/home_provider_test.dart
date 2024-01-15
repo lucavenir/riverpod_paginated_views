@@ -12,7 +12,7 @@ import '../../../../helpers/test_transitions.dart';
 void main() {
   group('homeProvider', () {
     const page = 0;
-    final home = homeProvider(0);
+    final home = homeProvider(page);
     late ItemsRepositoryInterface mockRepository;
 
     setUp(() {

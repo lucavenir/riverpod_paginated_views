@@ -13,19 +13,19 @@ void main() {
   group('favoritesProvider', () {
     const page = 0;
     final favorites = favoritesProvider(0);
-    late MockFavoritesRepository mockRepository;
+    late MockFavoritesRepository favoriteRepoMocked;
 
     setUp(() {
-      mockRepository = MockFavoritesRepository();
+      favoriteRepoMocked = MockFavoritesRepository();
     });
     tearDown(() {
-      reset(mockRepository);
+      reset(favoriteRepoMocked);
     });
     test('build should call getFavorites and load initial state', () async {
-      Future<IList<Item>> initCall() => mockRepository.getFavorites(page: page);
+      Future<IList<Item>> initCall() => favoriteRepoMocked.getFavorites(page: page);
       when(initCall).thenAnswer((_) async => <Item>[].lock);
       final container = TestContainer.setup(
-        overrides: [favoritesRepositoryProvider.overrideWith((ref) => mockRepository)],
+        overrides: [favoritesRepositoryProvider.overrideWith((ref) => favoriteRepoMocked)],
       );
 
       final tester = container.testTransitionsOn(favorites);
@@ -36,7 +36,7 @@ void main() {
         () => tester(null, const AsyncLoading<IList<Item>>()),
         () => tester(const AsyncLoading<IList<Item>>(), AsyncData(<Item>[].lock)),
       ]);
-      verifyNoMoreInteractions(mockRepository);
+      verifyNoMoreInteractions(favoriteRepoMocked);
       verifyNoMoreInteractions(tester);
     });
   });

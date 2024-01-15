@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../favorites/domain/repositories/favorites_repository_interface.dart';
+import '../../../favorites/presentation/providers/favorites_provider.dart';
 import '../../domain/entities/item.dart';
 import '../../domain/repositories/items_repository_interface.dart';
 
@@ -26,23 +27,25 @@ class ItemController extends _$ItemController {
 
   /// Adds this item to the favorites.
   @protected
-  Future<void> addFavorite() {
-    return update((state) async {
+  Future<void> addFavorite() async {
+    await update((state) async {
       assert(state.isNotFavorite, 'Item *must not* be a favorite to add it to the favorites');
 
       final favoriteId = await favoritesRepository.addFavorite(state);
       return state.copyWith(favoriteId: favoriteId);
     });
+    ref.invalidate(favoritesProvider);
   }
 
   /// Removes this item from the favorites.
   @protected
-  Future<void> removeFavorite() {
-    return update((state) async {
+  Future<void> removeFavorite() async {
+    await update((state) async {
       assert(state.isFavorite, 'Item *must* be favorite to remove it from the favorites');
 
       final _ = await favoritesRepository.removeFavorite(state);
       return state.copyWith(favoriteId: null);
     });
+    ref.invalidate(favoritesProvider);
   }
 }

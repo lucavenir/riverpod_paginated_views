@@ -1,6 +1,7 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../shared/domain/interfaces/repository_interface.dart';
 import '../../data/repositories/items_repository.dart';
 import '../entities/item.dart';
 
@@ -11,7 +12,7 @@ ItemsRepositoryInterface itemsRepository(ItemsRepositoryRef ref) {
   return const ItemsRepository();
 }
 
-abstract interface class ItemsRepositoryInterface {
+abstract interface class ItemsRepositoryInterface implements RepositoryInterface {
   Future<IList<Item>> fetchItems({required int page});
   Future<Item> getDetails({required int id});
 }
