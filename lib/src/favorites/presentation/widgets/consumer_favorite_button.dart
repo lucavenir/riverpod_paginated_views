@@ -18,14 +18,17 @@ class ConsumerFavoriteButton extends ConsumerWidget {
       ),
     );
 
+    final theme = Theme.of(context);
+
     return IconButton(
+      color: theme.colorScheme.error,
       onPressed: switch (isFavorite) {
         AsyncData() => () => ref.read(itemControllerProvider(id).notifier).toggle(),
         _ => null,
       },
       icon: switch (isFavorite) {
-        AsyncData(value: final isFavorite) =>
-          isFavorite ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
+        AsyncData(value: true) => const Icon(Icons.favorite),
+        AsyncData(value: false) => const Icon(Icons.favorite_border),
         AsyncLoading() => const SizedBox.square(
             dimension: 20,
             child: CircularProgressIndicator(strokeWidth: 1.5),

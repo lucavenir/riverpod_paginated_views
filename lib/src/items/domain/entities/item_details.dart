@@ -2,18 +2,21 @@ import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:isar/isar.dart';
 
-part 'item.freezed.dart';
-part 'item.g.dart';
+part 'item_details.freezed.dart';
+part 'item_details.g.dart';
 
 @freezed
 @Collection(ignore: {'props', 'copyWith'})
-class Item extends Equatable with _$Item {
-  const factory Item({
+class ItemDetails extends Equatable with _$ItemDetails {
+  const factory ItemDetails({
     required int id,
+    required DateTime createdAt,
+    required DateTime updatedAt,
     required String label,
+    required String author,
     required int? favoriteId,
-  }) = _Item;
-  const Item._();
+  }) = _ItemDetails;
+  const ItemDetails._();
 
   @override
   List<Object?> get props => [id];

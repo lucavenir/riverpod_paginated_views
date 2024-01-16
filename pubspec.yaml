@@ -26,9 +26,13 @@ dependencies:
   google_fonts: ^6.1.0
   hooks_riverpod: ^2.4.9
   intl: ^0.18.1
+  isar: ^4.0.0-dev.14
+  isar_flutter_libs: ^4.0.0-dev.14
   json_annotation: ^4.8.1
   package_info_plus: ^5.0.1
+  path_provider: ^2.1.2
   riverpod_annotation: ^2.3.3
+  shimmer: ^3.0.0
   stack_trace: ^1.11.1
   talker_dio_logger: ^2.4.0
   talker_flutter: ^3.6.0

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../router/routes_configuration.dart';
+import '../providers/loading_provider.dart';
 
 class MainPage extends HookConsumerWidget {
   const MainPage(this.navigationShell, {super.key});
@@ -13,6 +14,7 @@ class MainPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isInitial = navigationShell.currentIndex == 0;
     final canExit = useRef(isInitial);
+    final loading = ref.watch(loadingProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -26,7 +28,17 @@ class MainPage extends HookConsumerWidget {
           const HomeRoute().go(context);
           canExit.value = true;
         },
-        child: navigationShell,
+        child: switch (loading) {
+          AsyncValue(hasValue: true, value: != null) => navigationShell,
+          AsyncError() => const Center(
+              child: Text(
+                'An error occurred while loading data.\n'
+                'Please try again later.',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          _ => const Center(child: CircularProgressIndicator()),
+        },
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: navigationShell.currentIndex,
