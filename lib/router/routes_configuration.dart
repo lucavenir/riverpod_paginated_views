@@ -14,10 +14,10 @@ part 'routes_configuration.g.dart';
       routes: [TypedGoRoute<HomeRoute>(path: '/')],
     ),
     TypedStatefulShellBranch<SearchBranch>(
-      routes: [TypedGoRoute<SearchRoute>(path: '/countdown')],
+      routes: [TypedGoRoute<SearchRoute>(path: '/search')],
     ),
-    TypedStatefulShellBranch<SearchBranch>(
-      routes: [TypedGoRoute<SearchRoute>(path: '/profile')],
+    TypedStatefulShellBranch<FavoritesBranch>(
+      routes: [TypedGoRoute<FavoritesRoute>(path: '/favorite')],
     ),
   ],
 )
@@ -61,8 +61,8 @@ class SearchRoute extends GoRouteData {
   }
 }
 
-class FavoriteBranch extends StatefulShellBranchData {
-  const FavoriteBranch();
+class FavoritesBranch extends StatefulShellBranchData {
+  const FavoritesBranch();
 }
 
 class FavoritesRoute extends GoRouteData {

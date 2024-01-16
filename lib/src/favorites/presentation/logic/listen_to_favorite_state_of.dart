@@ -21,7 +21,9 @@ extension ListenToFavoriteStateOfExt on AutoDisposeFutureProviderRef<IList<Item>
           );
         }
       });
-      onDispose(sub.close);
+      try {
+        onDispose(sub.close);
+      } catch (_) {}
     }
   }
 }

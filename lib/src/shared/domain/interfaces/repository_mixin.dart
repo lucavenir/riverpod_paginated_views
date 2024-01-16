@@ -26,7 +26,7 @@ mixin RepositoryInterfaceMixin implements RepositoryInterface {
 
   Future<Item> randomItem(int id) async {
     final random = Random();
-    final randomPage = random.nextInt(id << 16);
+    final randomPage = random.nextInt((id + 1) << 16);
     final items = await randomItems(randomPage);
     final randomIndex = random.nextInt(items.length);
     return Future.delayed(

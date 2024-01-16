@@ -18,6 +18,7 @@ class MainPage extends HookConsumerWidget {
       appBar: AppBar(
         title: const Text('Infinite paginated lists with Riverpod'),
       ),
+      // bugged, because of `go_router`
       body: PopScope(
         canPop: canExit.value,
         onPopInvoked: (value) {
