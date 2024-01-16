@@ -13,19 +13,20 @@ void main() {
   group('homeProvider', () {
     const page = 0;
     final home = homeProvider(page);
-    late ItemsRepositoryInterface mockRepository;
+    late ItemsRepositoryInterface homeMockedRepo;
 
     setUp(() {
-      mockRepository = MockItemsRepository();
+      homeMockedRepo = MockItemsRepository();
     });
     tearDown(() {
-      reset(mockRepository);
+      reset(homeMockedRepo);
     });
-    test('build should call fetchItems and load initial state', () async {
-      Future<IList<Item>> initCall() => mockRepository.fetchItems(page: page);
-      when(initCall).thenAnswer((_) async => <Item>[].lock);
+    test('should call fetchItems and load initial state', () async {
+      final items = <Item>[].lock;
+      Future<IList<Item>> initCall() => homeMockedRepo.fetchItems(page: page);
+      when(initCall).thenAnswer((_) async => items);
       final container = TestContainer.setup(
-        overrides: [itemsRepositoryProvider.overrideWith((ref) => mockRepository)],
+        overrides: [itemsRepositoryProvider.overrideWith((ref) => homeMockedRepo)],
       );
 
       final tester = container.testTransitionsOn(home);
@@ -33,10 +34,10 @@ void main() {
 
       verifyInOrder([
         initCall,
-        () => tester(null, const AsyncLoading<IList<Item>>()),
-        () => tester(const AsyncLoading<IList<Item>>(), AsyncData(<Item>[].lock)),
+        () => tester(null, const AsyncLoading()),
+        () => tester(const AsyncLoading(), AsyncData(items)),
       ]);
-      verifyNoMoreInteractions(mockRepository);
+      verifyNoMoreInteractions(homeMockedRepo);
       verifyNoMoreInteractions(tester);
     });
   });
