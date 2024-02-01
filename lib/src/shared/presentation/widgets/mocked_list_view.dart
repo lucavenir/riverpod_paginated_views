@@ -36,15 +36,12 @@ class MockedListView extends ConsumerWidget {
               refreshable: refreshable,
               // builders
               context: context,
-              mainBuilder: (context, itemBuilder) => ListView.builder(
-                itemBuilder: itemBuilder,
-              ),
+              mainBuilder: (context, itemBuilder) => ListView.builder(itemBuilder: itemBuilder),
               emptyBuilder: (context) => const Center(child: Text('No items found')),
               itemBuilder: (context, element) => Container(
                 margin: const EdgeInsets.symmetric(vertical: 4),
                 child: ListTile(
                   tileColor: theme.colorScheme.surface,
-                  key: ValueKey((element.id, element.favoriteId)),
                   dense: true,
                   minLeadingWidth: 64,
                   title: Text('Item ${element.id}', style: theme.textTheme.bodyLarge),

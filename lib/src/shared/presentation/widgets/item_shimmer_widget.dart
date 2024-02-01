@@ -14,18 +14,17 @@ class ItemShimmerWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
         decoration: BoxDecoration(
-          border: Border.all(color: theme.colorScheme.surface),
           borderRadius: BorderRadius.circular(32),
         ),
         child: ListTile(
+          leading: Icon(
+            Icons.favorite_border,
+            color: theme.colorScheme.error,
+          ),
           title: Container(
             height: 20,
             width: 120,
             color: theme.colorScheme.surface,
-          ),
-          trailing: Icon(
-            Icons.favorite_border,
-            color: theme.colorScheme.error,
           ),
         ),
       ),
