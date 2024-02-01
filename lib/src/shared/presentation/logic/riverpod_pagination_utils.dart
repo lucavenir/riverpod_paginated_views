@@ -46,13 +46,13 @@ extension RiverpodPaginationUtils on WidgetRef {
 
         // warn. opinionated. this is where your implementation should take place
         return switch (state) {
-          AsyncValue(hasValue: true, value: IList(isEmpty: true)) when page == 0 =>
+          AsyncValue(hasValue: true, value: IList(isEmpty: true)) when page == 0 && offset == 0 =>
             emptyBuilder(context),
-          AsyncValue(hasValue: true, :final value?) when offset < pageSize =>
+          AsyncValue(hasValue: true, :final value?) when offset < value.length =>
             itemBuilder(context, value[offset]),
           AsyncLoading() => shimmerBuilder(context),
           AsyncError(:final error, :final stackTrace) => errorBuilder(context, error, stackTrace),
-          _ => const ListTile(title: Text('what...?')),
+          _ => null,
         };
       }),
     );

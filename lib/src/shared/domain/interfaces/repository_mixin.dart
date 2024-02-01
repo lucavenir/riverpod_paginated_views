@@ -13,13 +13,14 @@ mixin RepositoryInterfaceMixin implements RepositoryInterface {
   Future<IList<Item>> randomItems(int page, {bool favoritesOnly = false}) {
     final random = Random();
     final items = List.generate(pageSize, (index) {
-      final favoriteId = favoritesOnly
-          ? -1
-          : random.nextBool()
-              ? random.nextInt(1 << 16)
-              : null;
+      // final favoriteId = favoritesOnly
+      //     ? -1
+      //     : random.nextBool()
+      //         ? random.nextInt(1 << 16)
+      //         : null;
       final id = page * pageSize + index;
-      return Item(id: id, label: 'Item $id with $favoriteId', favoriteId: favoriteId);
+      // return Item(id: id, label: 'Item $id with $favoriteId', favoriteId: favoriteId);
+      return Item(id: id, label: 'Item $id', favoriteId: null);
     });
     return Future.delayed(
       random.nextInt(1000).milliseconds,
