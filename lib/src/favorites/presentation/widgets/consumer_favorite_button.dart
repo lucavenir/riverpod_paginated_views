@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../items/presentation/controllers/item_controller.dart';
+import '../controllers/is_favorite_controller.dart';
 
 class ConsumerFavoriteButton extends ConsumerWidget {
   const ConsumerFavoriteButton({
@@ -13,8 +13,8 @@ class ConsumerFavoriteButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isFavorite = ref.watch(
-      itemControllerProvider(id).select(
-        (value) => value.whenData((value) => value.isFavorite),
+      isFavoriteControllerProvider(id).select(
+        (value) => value.whenData((value) => value != null),
       ),
     );
 
@@ -23,7 +23,7 @@ class ConsumerFavoriteButton extends ConsumerWidget {
     return IconButton(
       color: theme.colorScheme.error,
       onPressed: switch (isFavorite) {
-        AsyncData() => () => ref.read(itemControllerProvider(id).notifier).toggle(),
+        AsyncData() => () => ref.read(isFavoriteControllerProvider(id).notifier).toggle(),
         _ => null,
       },
       icon: switch (isFavorite) {

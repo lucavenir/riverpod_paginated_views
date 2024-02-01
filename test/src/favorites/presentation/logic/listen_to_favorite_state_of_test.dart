@@ -3,10 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_paginated_views/src/favorites/domain/repositories/favorites_repository_interface.dart';
+import 'package:riverpod_paginated_views/src/favorites/presentation/controllers/is_favorite_controller.dart';
 import 'package:riverpod_paginated_views/src/favorites/presentation/logic/listen_to_favorite_state_of.dart';
 import 'package:riverpod_paginated_views/src/items/domain/entities/item.dart';
 import 'package:riverpod_paginated_views/src/items/domain/repositories/items_repository_interface.dart';
-import 'package:riverpod_paginated_views/src/items/presentation/controllers/item_controller.dart';
 
 import '../../../../helpers/container_setup.dart';
 import '../../../../helpers/test_transitions.dart';
@@ -29,22 +29,22 @@ void main() {
       when(initCall).thenAnswer((_) async => _someItems);
       final container = TestContainer.setup(
         overrides: [
-          itemControllerProvider(0).overrideWith(MockItemController.new),
-          itemControllerProvider(1).overrideWith(MockItemController.new),
-          itemControllerProvider(2).overrideWith(MockItemController.new),
-          itemControllerProvider(3).overrideWith(MockItemController.new),
+          isFavoriteControllerProvider(0).overrideWith(MockItemController.new),
+          isFavoriteControllerProvider(1).overrideWith(MockItemController.new),
+          isFavoriteControllerProvider(2).overrideWith(MockItemController.new),
+          isFavoriteControllerProvider(3).overrideWith(MockItemController.new),
           itemsRepositoryProvider.overrideWith((ref) => mockRepository),
         ],
       );
       final tester = container.testTransitionsOn(_testProvider);
 
       await container.read(_testProvider.future);
-      await container.read(itemControllerProvider(0).notifier).toggle();
-      await container.read(itemControllerProvider(1).notifier).toggle();
-      await container.read(itemControllerProvider(0).notifier).toggle();
-      await container.read(itemControllerProvider(2).notifier).toggle();
-      await container.read(itemControllerProvider(3).notifier).toggle();
-      await container.read(itemControllerProvider(0).notifier).toggle();
+      await container.read(isFavoriteControllerProvider(0).notifier).toggle();
+      await container.read(isFavoriteControllerProvider(1).notifier).toggle();
+      await container.read(isFavoriteControllerProvider(0).notifier).toggle();
+      await container.read(isFavoriteControllerProvider(2).notifier).toggle();
+      await container.read(isFavoriteControllerProvider(3).notifier).toggle();
+      await container.read(isFavoriteControllerProvider(0).notifier).toggle();
       await container.pump();
       await container.read(_testProvider.future);
 
