@@ -3,10 +3,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../home/presentation/providers/home_provider.dart';
 import '../../../search/presentation/providers/search_provider.dart';
+import '../../../shared/presentation/hooks/use_side_effect.dart';
 import '../controllers/is_favorite_controller.dart';
 import '../providers/favorites_provider.dart';
 
-class ConsumerFavoriteButton extends ConsumerWidget {
+class ConsumerFavoriteButton extends HookConsumerWidget {
   const ConsumerFavoriteButton({
     required this.id,
     required this.page,
@@ -30,28 +31,47 @@ class ConsumerFavoriteButton extends ConsumerWidget {
     );
 
     final theme = Theme.of(context);
+    final (clear: _, :mutate, :snapshot) = useSideEffect<void>();
+
+    Future<void> onPressed() async {
+      await ref.read(isFavoriteControllerProvider(id).notifier).toggle();
+
+      ref
+        ..invalidate(homeProvider)
+        ..invalidate(searchProvider);
+    }
 
     return IconButton(
       color: theme.colorScheme.error,
       onPressed:
           // switch (isFavorite) {
           //   AsyncData() =>
-          () {
-        ref.read(isFavoriteControllerProvider(id).notifier).toggle();
-        ref
-          ..invalidate(homeProvider(page))
-          ..invalidate(searchProvider(page));
+          () async {
+        try {
+          final future = onPressed();
+          mutate(future);
+          await future;
+        } catch (error) {
+          print(error);
+        }
       },
+
       //   _ => null,
       // },
-      icon: switch (isFavorite) {
-        AsyncData(value: true) => const Icon(Icons.favorite),
-        AsyncData(value: false) => const Icon(Icons.favorite_border),
-        AsyncLoading() => const SizedBox.square(
+      icon: switch (snapshot) {
+        AsyncSnapshot(connectionState: ConnectionState.waiting) => const SizedBox.square(
             dimension: 20,
             child: CircularProgressIndicator(strokeWidth: 1.5),
           ),
-        _ => const Icon(Icons.favorite_border),
+        _ => switch (isFavorite) {
+            AsyncData(value: true) => const Icon(Icons.favorite),
+            // AsyncData(value: false) => const Icon(Icons.favorite_border),
+            // AsyncLoading() => const SizedBox.square(
+            //     dimension: 20,
+            //     child: CircularProgressIndicator(strokeWidth: 1.5),
+            //   ),
+            _ => const Icon(Icons.favorite_border),
+          },
       },
     );
   }
