@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../favorites/presentation/widgets/consumer_favorite_button.dart';
 import '../../../items/domain/entities/item.dart';
 import '../../../shared/presentation/logic/riverpod_pagination_utils.dart';
+import '../../domain/enum/tab.dart';
 import 'item_shimmer_widget.dart';
 
 class MockedListView extends ConsumerWidget {
@@ -12,12 +13,14 @@ class MockedListView extends ConsumerWidget {
     required this.family,
     required this.watcher,
     required this.refreshable,
+    required this.pageBar,
     super.key,
   });
   final String title;
   final ProviderOrFamily family;
   final PaginatedWatcher<Item> watcher;
   final PaginatedRefreshable<Item> refreshable;
+  final PageBar pageBar;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,7 +48,11 @@ class MockedListView extends ConsumerWidget {
                   dense: true,
                   minLeadingWidth: 64,
                   title: Text('Item ${element.id}', style: theme.textTheme.bodyLarge),
-                  leading: ConsumerFavoriteButton(id: element.id, page: page),
+                  leading: ConsumerFavoriteButton(
+                    id: element.id,
+                    page: page,
+                    tab: pageBar,
+                  ),
                 ),
               ),
               shimmerBuilder: (context) => const ItemShimmerWidget(),
