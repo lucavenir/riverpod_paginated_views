@@ -14,7 +14,6 @@ final class ItemsRepository with RepositoryInterfaceMixin implements ItemsReposi
 
   @override
   Future<IList<Item>> fetchItems({required int page, bool refresh = false}) {
-    print('ho fetchato');
     return fetch(
       localFetcher: () => _localItems(page),
       remoteFetcher: () => _freshItems(page),
@@ -49,7 +48,6 @@ final class ItemsRepository with RepositoryInterfaceMixin implements ItemsReposi
 
   @override
   Future<Item> getDetails({required int id, bool refresh = false}) {
-    print('sono stato chiamato');
     return fetch(
       localFetcher: () => _localItem(id),
       remoteFetcher: () => _freshItem(id),
