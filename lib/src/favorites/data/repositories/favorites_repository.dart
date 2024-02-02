@@ -21,11 +21,11 @@ final class FavoritesRepository implements FavoritesRepositoryInterface {
   }
 
   @override
-  Future<int> addFavorite(int itemId) async {
+  Future<int> addFavorite(Item item) async {
     final nextId = Random().nextInt(1 << 16);
     await db.writeAsync(
       (isar) => isar.items.update(
-        id: itemId,
+        id: item.id,
         favoriteId: nextId,
         isFavorite: true,
         isNotFavorite: false,
@@ -35,10 +35,10 @@ final class FavoritesRepository implements FavoritesRepositoryInterface {
   }
 
   @override
-  Future<int> removeFavorite(int itemId) async {
+  Future<int> removeFavorite(Item item) async {
     await db.writeAsync(
       (isar) => isar.items.update(
-        id: itemId,
+        id: item.id,
         // ignore: avoid_redundant_argument_values
         favoriteId: null,
         isFavorite: false,
@@ -46,6 +46,6 @@ final class FavoritesRepository implements FavoritesRepositoryInterface {
       ),
     );
 
-    return itemId;
+    return item.id;
   }
 }
