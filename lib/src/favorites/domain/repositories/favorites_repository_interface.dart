@@ -16,6 +16,6 @@ FavoritesRepositoryInterface favoritesRepository(FavoritesRepositoryRef ref) {
 
 abstract interface class FavoritesRepositoryInterface implements RepositoryInterface {
   Future<IList<Item>> getFavorites({required int page});
-  Future<int> addFavorite(Item item);
-  Future<int> removeFavorite(Item item);
+  Future<int> addFavorite(int item);
+  Future<int> removeFavorite(int item);
 }
