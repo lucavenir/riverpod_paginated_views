@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../home/presentation/providers/home_provider.dart';
-import '../../../items/presentation/controllers/item_controller.dart';
 import '../../../search/presentation/providers/search_provider.dart';
+import '../controllers/is_favorite_controller.dart';
 import '../providers/favorites_provider.dart';
 
 class ConsumerFavoriteButton extends ConsumerWidget {
@@ -37,7 +37,7 @@ class ConsumerFavoriteButton extends ConsumerWidget {
           // switch (isFavorite) {
           //   AsyncData() =>
           () {
-        ref.read(itemControllerProvider(id).notifier).toggle();
+        ref.read(isFavoriteControllerProvider(id).notifier).toggle();
         ref
           ..invalidate(homeProvider(page))
           ..invalidate(searchProvider(page));
