@@ -3,20 +3,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_paginated_views/src/favorites/domain/repositories/favorites_repository_interface.dart';
+import 'package:riverpod_paginated_views/src/favorites/presentation/controllers/is_favorite_controller.dart';
 import 'package:riverpod_paginated_views/src/favorites/presentation/providers/favorites_provider.dart';
 import 'package:riverpod_paginated_views/src/items/domain/entities/item.dart';
 import 'package:riverpod_paginated_views/src/items/domain/repositories/items_repository_interface.dart';
-import 'package:riverpod_paginated_views/src/items/presentation/controllers/item_controller.dart';
 
 import '../../../../helpers/container_setup.dart';
 import '../../../../helpers/test_transitions.dart';
 
 void main() {
   const id = 99;
-  final item = itemControllerProvider(id);
+  final item = isFavoriteControllerProvider(id);
   group('ItemController', () {
     const id = 99;
-    final item = itemControllerProvider(id);
+    final item = isFavoriteControllerProvider(id);
 
     late MockItemsRepository itemsMock;
 
