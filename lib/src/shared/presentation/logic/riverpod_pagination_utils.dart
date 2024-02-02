@@ -15,7 +15,7 @@ typedef RiverpodPaginatedBuilder = Widget Function(
   BuildContext context,
   NullableIndexedWidgetBuilder itemBuilder,
 );
-typedef RiverpodItemBuilder<T> = Widget Function(BuildContext context, T element);
+typedef RiverpodItemBuilder<T> = Widget Function(BuildContext context, T element, int page);
 
 extension RiverpodPaginationUtils on WidgetRef {
   Widget paginationBuilder<T>({
@@ -49,7 +49,7 @@ extension RiverpodPaginationUtils on WidgetRef {
           AsyncValue(hasValue: true, value: IList(isEmpty: true)) when page == 0 && offset == 0 =>
             emptyBuilder(context),
           AsyncValue(hasValue: true, :final value?) when offset < value.length =>
-            itemBuilder(context, value[offset]),
+            itemBuilder(context, value[offset], page),
           AsyncLoading() => shimmerBuilder(context),
           AsyncError(:final error, :final stackTrace) => errorBuilder(context, error, stackTrace),
           _ => null,

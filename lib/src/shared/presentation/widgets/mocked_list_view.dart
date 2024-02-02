@@ -38,14 +38,14 @@ class MockedListView extends ConsumerWidget {
               context: context,
               mainBuilder: (context, itemBuilder) => ListView.builder(itemBuilder: itemBuilder),
               emptyBuilder: (context) => const Center(child: Text('No items found')),
-              itemBuilder: (context, element) => Container(
+              itemBuilder: (context, element, page) => Container(
                 margin: const EdgeInsets.symmetric(vertical: 4),
                 child: ListTile(
                   tileColor: theme.colorScheme.surface,
                   dense: true,
                   minLeadingWidth: 64,
                   title: Text('Item ${element.id}', style: theme.textTheme.bodyLarge),
-                  leading: ConsumerFavoriteButton(id: element.id),
+                  leading: ConsumerFavoriteButton(id: element.id, page: page),
                 ),
               ),
               shimmerBuilder: (context) => const ItemShimmerWidget(),
