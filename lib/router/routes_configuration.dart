@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
-import '../src/favorites/presentation/pages/favorites_page.dart';
-import '../src/home/presentation/pages/home_page.dart';
-import '../src/main/presentation/pages/main_page.dart';
-import '../src/search/presentation/pages/search_page.dart';
+import '../src/favorites/pages/favorites_page.dart';
+import '../src/home/pages/home_page.dart';
+import '../src/main/pages/main_page.dart';
+import '../src/search/pages/search_page.dart';
 
 part 'routes_configuration.g.dart';
 

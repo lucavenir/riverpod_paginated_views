@@ -9,6 +9,8 @@ import 'riverpod_paginated_views_app_localizations_en.dart'
 import 'riverpod_paginated_views_app_localizations_es.dart'
     deferred as riverpod_paginated_views_app_localizations_es;
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of RiverpodPaginatedViewsLocalizations
 /// returned by `RiverpodPaginatedViewsLocalizations.of(context)`.
 ///
